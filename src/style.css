@@ -1,0 +1,345 @@
+/* ------------------------------------------------------------------------- */
+/* Theme tokens                                                              */
+/* ------------------------------------------------------------------------- */
+:root {
+  --bg: #f4f6fb;
+  --panel: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+body[data-theme="dark"] {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --border: #334155;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --danger: #f87171;
+  --success: #4ade80;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 24px 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.app__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.app__title {
+  margin: 0;
+  font-size: 22px;
+}
+
+.app__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app__footer {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.status {
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--border);
+  color: var(--muted);
+}
+
+.status--ok {
+  color: var(--success);
+  background: rgba(22, 163, 74, 0.12);
+}
+
+.status--down {
+  color: var(--danger);
+  background: rgba(220, 38, 38, 0.12);
+}
+
+.icon-button {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Layout                                                                    */
+/* ------------------------------------------------------------------------- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Calculator                                                                */
+/* ------------------------------------------------------------------------- */
+.calculator__label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.calculator__display {
+  width: 100%;
+  padding: 14px;
+  font-size: 22px;
+  text-align: right;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+}
+
+.calculator__display:focus {
+  border-color: var(--primary);
+}
+
+.calculator__result {
+  margin: 12px 2px 4px;
+  font-size: 26px;
+  font-weight: 600;
+  text-align: right;
+  min-height: 34px;
+  color: var(--primary);
+  word-break: break-all;
+}
+
+.calculator__result--error {
+  color: var(--danger);
+}
+
+.calculator__message {
+  min-height: 20px;
+  font-size: 13px;
+  text-align: right;
+  color: var(--muted);
+}
+
+.calculator__message--error {
+  color: var(--danger);
+}
+
+.calculator__message--success {
+  color: var(--success);
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.key {
+  padding: 16px 0;
+  font-size: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.15s ease;
+}
+
+.key:hover {
+  background: var(--border);
+}
+
+.key:active {
+  transform: scale(0.97);
+}
+
+.key--operator {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.key--function {
+  color: var(--danger);
+}
+
+.key--equals {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+.key--equals:hover {
+  background: var(--primary-dark);
+}
+
+.calculator__hint {
+  margin: 14px 2px 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------------- */
+/* History                                                                   */
+/* ------------------------------------------------------------------------- */
+.history__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.history__title {
+  margin: 0;
+  font-size: 17px;
+}
+
+.history__count {
+  display: inline-block;
+  min-width: 22px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  text-align: center;
+  background: var(--border);
+  color: var(--muted);
+}
+
+.history__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  background: var(--panel);
+  color: var(--text);
+}
+
+.button--ghost:hover {
+  background: var(--border);
+}
+
+.button--danger {
+  color: #fff;
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.button--danger:hover {
+  opacity: 0.9;
+}
+
+.button--small {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.history__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 460px;
+  overflow-y: auto;
+}
+
+.history__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.history__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.history__expression {
+  font-size: 15px;
+  word-break: break-all;
+}
+
+.history__result {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  word-break: break-all;
+}
+
+.history__time {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.history__empty {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+  padding: 24px 0;
+}

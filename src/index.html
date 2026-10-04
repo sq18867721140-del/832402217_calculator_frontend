@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend-Backend Separated Calculator</title>
+    <link rel="stylesheet" href="style.css?v=3" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <h1 class="app__title">Frontend-Backend Separated Calculator</h1>
+        <div class="app__actions">
+          <span id="backendStatus" class="status status--unknown">Backend: Checking…</span>
+          <button id="themeToggle" class="icon-button" type="button" title="Toggle theme">
+            🌙
+          </button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <!-- ============ Calculator ============ -->
+        <section class="panel calculator" aria-label="Calculator">
+          <label class="calculator__label" for="expression">Expression</label>
+          <input
+            id="expression"
+            class="calculator__display"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="e.g. (1+2)*3"
+          />
+
+          <div id="result" class="calculator__result" aria-live="polite">= …</div>
+          <div id="message" class="calculator__message" role="alert"></div>
+
+          <div class="keypad">
+            <button class="key key--function" data-action="clear" type="button">C</button>
+            <button class="key key--function" data-value="(" type="button">(</button>
+            <button class="key key--function" data-value=")" type="button">)</button>
+            <button class="key key--function" data-action="backspace" type="button">⌫</button>
+
+            <button class="key" data-value="7" type="button">7</button>
+            <button class="key" data-value="8" type="button">8</button>
+            <button class="key" data-value="9" type="button">9</button>
+            <button class="key key--operator" data-value="/" type="button">÷</button>
+
+            <button class="key" data-value="4" type="button">4</button>
+            <button class="key" data-value="5" type="button">5</button>
+            <button class="key" data-value="6" type="button">6</button>
+            <button class="key key--operator" data-value="*" type="button">×</button>
+
+            <button class="key" data-value="1" type="button">1</button>
+            <button class="key" data-value="2" type="button">2</button>
+            <button class="key" data-value="3" type="button">3</button>
+            <button class="key key--operator" data-value="-" type="button">−</button>
+
+            <button class="key" data-value="0" type="button">0</button>
+            <button class="key" data-value="." type="button">.</button>
+            <button class="key key--equals" data-action="calculate" type="button">=</button>
+            <button class="key key--operator" data-value="+" type="button">+</button>
+          </div>
+
+          <p class="calculator__hint">
+            Keyboard: digits and + - * / ( ) to type, Enter to calculate, Backspace to delete, Esc to clear
+          </p>
+        </section>
+
+        <!-- ============ History ============ -->
+        <section class="panel history" aria-label="History">
+          <div class="history__header">
+            <h2 class="history__title">
+              History <span id="historyCount" class="history__count">0</span>
+            </h2>
+            <div class="history__actions">
+              <button id="refreshHistory" class="button button--ghost" type="button">
+                Refresh
+              </button>
+              <button id="clearHistory" class="button button--danger" type="button">
+                Clear All
+              </button>
+            </div>
+          </div>
+
+          <ul id="historyList" class="history__list"></ul>
+          <p id="historyEmpty" class="history__empty">No history yet</p>
+        </section>
+      </main>
+
+      <footer class="app__footer">
+        The backend evaluates expressions and persists them to SQLite; the frontend only handles interaction and display.
+      </footer>
+    </div>
+
+    <script src="config.js?v=3"></script>
+    <script src="api.js?v=3"></script>
+    <script src="app.js?v=3"></script>
+  </body>
+</html>
