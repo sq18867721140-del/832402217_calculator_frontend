@@ -1,10 +1,9 @@
 // ---------------------------------------------------------------------------
 // Runtime configuration.
 //
-// After deploying the back end, change API_BASE_URL to the public address,
-// e.g. "https://your-backend.example.com".  No other front-end file needs to
-// change when the back-end address changes.
+// Backend deployed on Railway (public URL). The frontend is hosted on
+// GitHub Pages and calls this backend cross-origin (CORS is enabled).
 // ---------------------------------------------------------------------------
 window.APP_CONFIG = {
-  API_BASE_URL: "http://127.0.0.1:8000",
+  API_BASE_URL: "https://832402217calculatorbackend-production.up.railway.app",
 };
