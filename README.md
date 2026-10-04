@@ -32,7 +32,7 @@ cd 832402217_calculator_frontend
 
 ## 4. Configuration
 
-The backend address is centralized in `src/config.js`:
+The backend address is centralized in `config.js`:
 
 ```js
 window.APP_CONFIG = {
@@ -49,7 +49,7 @@ window.APP_CONFIG = {
 > Opening `index.html` directly via the `file://` protocol is not recommended, because browsers may block cross-origin requests. Serve it with a static server instead.
 
 ```bash
-cd 832402217_calculator_frontend/src
+cd 832402217_calculator_frontend
 
 # Option 1: Python built-in static server (recommended)
 python -m http.server 5500
@@ -97,23 +97,24 @@ Endpoints used:
 
 ```
 832402217_calculator_frontend/
-├── src/
-│   ├── index.html    # Page structure
-│   ├── style.css     # Styles and themes
-│   ├── config.js     # Runtime configuration (backend address)
-│   ├── api.js        # Backend API wrapper
-│   └── app.js        # Interaction logic (calls API, renders)
+├── index.html    # Page structure
+├── style.css     # Styles and themes
+├── config.js     # Runtime configuration (backend address)
+├── api.js        # Backend API wrapper
+├── app.js        # Interaction logic (calls API, renders)
 ├── codestyle.md
 └── README.md
 ```
+
+> The web files are hosted at the repository root so that GitHub Pages can serve them directly.
 
 ## 9. Deployment
 
 This is a static site and can be deployed to any static host:
 
-- **GitHub Pages**: push the `src/` content to the repository and enable Pages.
-- **Vercel / Netlify**: import the repository and set the root (or build output) directory to `src`.
-- After deployment, update `API_BASE_URL` in `src/config.js` to the public backend URL.
+- **GitHub Pages**: in the repository **Settings → Pages**, set the source to `Deploy from a branch`, branch `main`, and folder `/ (root)`.
+- **Vercel / Netlify**: import the repository and set the root directory to `/`.
+- After deployment, update `API_BASE_URL` in `config.js` to the public backend URL.
 
 ## 10. Verifying Front-End / Back-End Separation
 
