@@ -1,40 +1,38 @@
-# StudentID_calculator_frontend
+# 832402217_calculator_frontend
 
-前后端分离计算器系统的**前端**项目。负责用户交互与信息展示：输入表达式、调用后端 API 获取结果、展示与管理计算历史。
+The **frontend** of a front-end / back-end separated calculator system. It handles user interaction and information display: entering expressions, calling the backend API for results, and displaying / managing calculation history.
 
-> 请将目录名 `StudentID_calculator_frontend` 中的 `StudentID` 替换为你的学号，例如 `20231234_calculator_frontend`。
+> **Important**: this frontend contains **no calculation logic**. Expressions are always sent to the backend for evaluation; the frontend only displays the returned result. If the backend is stopped, the frontend can still be used for interaction but cannot produce a new calculation result.
 
-> **重要**：本前端**不包含任何计算逻辑**。表达式一律发送给后端计算，前端只负责显示后端返回的结果。停止后端服务后，前端仍可交互，但无法得到新的计算结果。
+## 1. Tech Stack
 
-## 1. 技术栈
-
-| 项目 | 选型 |
+| Item | Choice |
 | --- | --- |
-| 结构 | 原生 HTML5 |
-| 样式 | 原生 CSS3（CSS 变量 + Grid 布局，支持明暗主题） |
-| 脚本 | 原生 JavaScript（ES2015+，无框架、无构建步骤） |
-| 通信 | `fetch` + JSON，HTTP API |
+| Structure | Native HTML5 |
+| Styling | Native CSS3 (CSS variables + Grid layout, light / dark themes) |
+| Scripting | Native JavaScript (ES2015+, no framework, no build step) |
+| Communication | `fetch` + JSON over HTTP API |
 
-采用原生技术栈的原因：无需构建工具与依赖，便于部署与助教验证，同时能清晰体现前后端分离。
+Native technologies were chosen deliberately: no build tools or dependencies are needed, which simplifies deployment and verification while clearly demonstrating front-end / back-end separation.
 
-## 2. 运行环境
+## 2. Runtime Environment
 
-- 任意现代浏览器（Chrome / Edge / Firefox）
-- 如需本地托管，可用 Python 自带的静态服务器
-- 无需 Node.js、无需 `npm install`
+- Any modern browser (Chrome / Edge / Firefox)
+- A static server is recommended for local serving (see below)
+- No Node.js and no `npm install` required
 
-## 3. 安装方法
+## 3. Installation
 
-本项目无第三方依赖，克隆仓库即可：
+This project has no third-party dependencies; just clone the repository:
 
 ```bash
 git clone <frontend-repo-url>
-cd StudentID_calculator_frontend
+cd 832402217_calculator_frontend
 ```
 
-## 4. 配置说明
+## 4. Configuration
 
-后端地址集中在 `src/config.js`：
+The backend address is centralized in `src/config.js`:
 
 ```js
 window.APP_CONFIG = {
@@ -42,87 +40,86 @@ window.APP_CONFIG = {
 };
 ```
 
-- 本地开发：保持默认即可（需先启动后端）。
-- 部署后：改成后端公网地址，例如 `https://your-backend.example.com`。
-- 修改此文件后无需改动任何其他代码。
+- Local development: keep the default (the backend must be running first).
+- After deployment: change it to the public backend URL, e.g. `https://your-backend.example.com`.
+- No other code needs to change when this file is modified.
 
-## 5. 启动方法
+## 5. Running
 
-> ⚠️ 不建议直接双击 `index.html`（`file://` 协议下浏览器可能拦截跨域请求）。
-> 请用静态服务器托管。
+> Opening `index.html` directly via the `file://` protocol is not recommended, because browsers may block cross-origin requests. Serve it with a static server instead.
 
 ```bash
-cd StudentID_calculator_frontend/src
+cd 832402217_calculator_frontend/src
 
-# 方式一：Python 内置静态服务器（推荐）
+# Option 1: Python built-in static server (recommended)
 python -m http.server 5500
 
-# 方式二：VS Code 的 Live Server 插件，右键 index.html → Open with Live Server
+# Option 2: VS Code Live Server extension (right-click index.html → Open with Live Server)
 ```
 
-然后访问 <http://127.0.0.1:5500>。
+Then visit <http://127.0.0.1:5500>.
 
-## 6. 与后端连接方式
+## 6. Connecting to the Backend
 
-- 前端通过 `fetch` 调用后端 REST API。
-- 请求 / 响应均为 JSON。
-- 后端已开启 CORS，支持跨域访问。
-- 页面右上角显示「后端状态」，用于快速确认连通性。
+- The frontend calls the backend REST API with `fetch`.
+- Requests and responses are JSON.
+- CORS is enabled on the backend, so cross-origin calls work.
+- A backend status indicator is shown in the top-right corner of the page.
 
-用到的接口：
+Endpoints used:
 
-| 方法 | 路径 | 用途 |
+| Method | Path | Purpose |
 | --- | --- | --- |
-| POST | `/api/calculate` | 提交表达式，获取计算结果 |
-| GET | `/api/history` | 获取计算历史 |
-| DELETE | `/api/history/{id}` | 删除单条历史 |
-| DELETE | `/api/history` | 清空全部历史 |
-| GET | `/api/health` | 检测后端是否可用 |
+| POST | `/api/calculate` | Submit an expression and get the result |
+| GET | `/api/history` | Get calculation history |
+| DELETE | `/api/history/{id}` | Delete one history record |
+| DELETE | `/api/history` | Clear all history |
+| GET | `/api/health` | Check whether the backend is reachable |
 
-## 7. 功能说明
+## 7. Features
 
-### 必需功能
-- 四则运算（`+ - × ÷`）与按钮 / 键盘输入
-- 复合表达式：优先级、括号、一元正负号、小数
-- 结果由后端计算并返回，前端仅显示
-- 计算历史从后端数据库读取并展示（含表达式、结果、时间）
-- 删除指定历史记录（删除后重新拉取后端数据）
-- 错误提示：非法表达式、除零等
+### Required features
+- Four basic operations (`+ - × ÷`) with button / keyboard input
+- Compound expressions: precedence, parentheses, unary plus / minus, decimals
+- Results computed by the backend and returned; the frontend only displays them
+- Calculation history read from the backend database and displayed (expression, result, time)
+- Delete a single history record (the list is re-fetched after deletion)
+- Error messages: invalid expression, division by zero, etc.
 
-### 扩展功能（额外加分）
-- **清空全部历史**
-- **键盘快捷键**：数字与 `+ - * / ( )` 直接输入，`Enter` 计算，`Backspace` 删除，`Esc` 清空
-- **主题切换**（明 / 暗），偏好保存于 `localStorage`
-- **后端状态检测**指示
-- 历史记录数量统计
+### Extended features (bonus)
+- **Clear all history**
+- **Keyboard shortcuts**: type digits and `+ - * / ( )`, `Enter` to calculate, `Backspace` to delete, `Esc` to clear
+- **Theme toggle** (light / dark), preference stored in `localStorage`
+- **Backend status indicator**
+- History record count
 
-## 8. 项目结构
+## 8. Project Structure
 
 ```
-StudentID_calculator_frontend/
+832402217_calculator_frontend/
 ├── src/
-│   ├── index.html    # 页面结构
-│   ├── style.css     # 样式与主题
-│   ├── config.js     # 运行时配置（后端地址）
-│   ├── api.js        # 后端 API 封装
-│   └── app.js        # 交互逻辑（调用 API、渲染）
+│   ├── index.html    # Page structure
+│   ├── style.css     # Styles and themes
+│   ├── config.js     # Runtime configuration (backend address)
+│   ├── api.js        # Backend API wrapper
+│   └── app.js        # Interaction logic (calls API, renders)
 ├── codestyle.md
 └── README.md
 ```
 
-## 9. 部署
+## 9. Deployment
 
-静态页面，可部署到任意静态托管：
+This is a static site and can be deployed to any static host:
 
-- **GitHub Pages**：把 `src/` 内容推到仓库并开启 Pages。
-- **Vercel / Netlify**：导入仓库，将根目录设为 `src`（或构建输出目录为 `src`）。
-- 部署后记得把 `src/config.js` 的 `API_BASE_URL` 改为后端公网地址。
+- **GitHub Pages**: push the `src/` content to the repository and enable Pages.
+- **Vercel / Netlify**: import the repository and set the root (or build output) directory to `src`.
+- After deployment, update `API_BASE_URL` in `src/config.js` to the public backend URL.
 
-## 10. 验证前后端分离
+## 10. Verifying Front-End / Back-End Separation
 
-1. 启动后端与前端，进行一次计算，确认结果显示且历史出现。
-2. **停止后端服务**，刷新页面：
-   - 页面仍可正常交互（点击按钮、输入表达式）；
-   - 提交计算时提示请求失败，**无法得到新的有效结果**；
-   - 「后端状态」显示为「不可用」。
-3. 重新启动后端，刷新页面，历史记录仍然存在（数据持久化在后端数据库）。
+1. Start the backend and the frontend, perform a calculation, and confirm the result is shown and the history appears.
+2. **Stop the backend**, then refresh the page:
+   - The page still responds to interaction (clicking buttons, typing expressions);
+   - Submitting a calculation reports a request failure and **produces no new valid result**;
+   - The backend status indicator shows "Offline".
+3. Restart the backend, refresh the page, and the history records are still there (data is persisted in the backend database).
